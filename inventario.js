@@ -1,29 +1,57 @@
 class Inventario{
     constructor(){
-        this.datos=[];
+        this.inicio= null; 
     }
     agregar(nuevo){
-        this.datos.push(nuevo);
-    }
+        if(this.inicio=== null)
+            this.inicio= nuevo; 
+        else
+            this.agregate(nuevo,this.inicio)
+        }
+        agregate(nuevo,ultimo){
+          if(ultimo.siguiente== null)
+          ultimo.siguiente= nuevo;
+          else
+          this.agregate(nuevo,ultimo.siguiente)
+        }
     listar(){
+        let t= this.inicio;
         let res='';
-        for(let i=0;i<this.datos.length;i++){
-            res+=this.datos[i].infoHtml() + '<br>';
+        while (t!= null){
+            res += t.info() + " ::: " 
+            t= t.siguiente;
         }
         return res;
     }
+
     buscar(id){
-        for(let i=0;i<this.datos.length;i++){
-            if (this.datos[i].id===id)
-                return this.datos[i];
-        }
-        return null;
-    }
+            let t=this.inicio;
+            while(t!=null){
+              if (id==t.id)
+                return t;
+              else
+                t=t.siguiente;
+            }
+            return null;
+          }
+        
     eliminar(id){
-        for(let i=0;i<this.datos.length;i++){
-            if (this.datos[i].id===id)
-                return this.datos.splice(i);
+           //destructores
+      if (this.inicio!=null){
+        if (this.inicio.id==id)
+          this.inicio=this.inicio.siguiente;
+        else{
+          let t=this.inicio;
+          while( t.siguiente!=null){
+            if (t.siguiente.id==id){
+              t.siguiente=t.siguiente.siguiente;
+              return true;
+            }
+            else
+              t=t.siguiente;
+          }
+          return false;
         }
-        return null;
     }
+}
 }
