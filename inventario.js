@@ -18,7 +18,7 @@ class Inventario{
         let t= this.inicio;
         let res='';
         while (t!= null){
-            res += t.info() + " ::: " 
+            res += t.infoTabla() 
             t= t.siguiente;
         }
         return res;
